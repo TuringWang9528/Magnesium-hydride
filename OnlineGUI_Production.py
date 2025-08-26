@@ -57,7 +57,7 @@ for col in discrete_cols:
     default_idx = options.index(default_val) if default_val in options else 0
 
     inputs[col] = st.selectbox(col, options=options, index=default_idx)
-
+    st.caption(f"可选值：{', '.join(map(str, options))}；默认：{default_val}")
 # 组装成与训练时相同顺序的 DataFrame
 X_input_df = pd.DataFrame([[inputs[c] for c in features]], columns=features)
 
@@ -92,7 +92,7 @@ if st.button("预测"):
                 X_input_df.iloc[0],
                 matplotlib=True
             )
-            plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=1200)
+            plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=600)
             st.image("shap_force_plot.png")
         except Exception as e:
             st.warning(f"SHAP 可视化未成功：{e}")
