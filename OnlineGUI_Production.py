@@ -31,7 +31,7 @@ if st.button("Predict"):
     predicted_production = model.predict(input_values)[0]
     
     # 显示预测结果
-    st.write(f"**Predicted hydrogen production volume (mL/g):** {predicted_production}")
+    st.write(f"**Predicted hydrogen production volume (mL/g):** {predicted_production.4f}")
     
     # 计算SHAP值并显示force plot
     explainer = shap.TreeExplainer(model)
