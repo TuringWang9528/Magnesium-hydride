@@ -15,7 +15,7 @@ features_columns = ['Reaction time(min)', 'Mg(g)', 'Ce(g)', 'Ca(g)', 'ln(g)', 'F
 target_column = 'Hydrogen production(mL/g)'
 
 # Streamlit 用户界面
-st.title("氢气生产预测平台")
+st.title("Magnesium hydride hydrogen production prediction platform")
 
 # 为每个特征创建输入字段
 inputs = {}
@@ -26,12 +26,12 @@ for column in features_columns:
 input_values = np.array([list(inputs.values())])
 
 # 当点击“预测”按钮时
-if st.button("预测"):
+if st.button("Predict"):
     # 使用模型进行预测
     predicted_production = model.predict(input_values)[0]
     
     # 显示预测结果
-    st.write(f"**预测的氢气生产量 (mL/g):** {predicted_production}")
+    st.write(f"**Predicted hydrogen production volume (mL/g):** {predicted_production}")
     
     # 计算SHAP值并显示force plot
     explainer = shap.TreeExplainer(model)
