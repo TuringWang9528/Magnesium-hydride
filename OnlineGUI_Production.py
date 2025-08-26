@@ -21,7 +21,7 @@ features = list(model_feature_names) if model_feature_names else candidate_featu
 discrete_cols = [c for c in ['Ball milling', 'Non ball milling'] if c in features]
 numeric_cols = [c for c in features if c not in discrete_cols]
 
-st.title("氢气生产预测平台")
+st.title("Magnesium hydride hydrogen production prediction platform")
 
 inputs = {}
 
@@ -57,7 +57,8 @@ for col in discrete_cols:
     default_idx = options.index(default_val) if default_val in options else 0
 
     inputs[col] = st.selectbox(col, options=options, index=default_idx)
-    st.caption(f"可选值：{', '.join(map(str, options))}；默认：{default_val}")
+    st.caption(f"Ball milling is 1, non ball milling is 0")
+    
 # 组装成与训练时相同顺序的 DataFrame
 X_input_df = pd.DataFrame([[inputs[c] for c in features]], columns=features)
 
@@ -65,20 +66,20 @@ X_input_df = pd.DataFrame([[inputs[c] for c in features]], columns=features)
 for c in numeric_cols:
     X_input_df[c] = pd.to_numeric(X_input_df[c], errors='coerce')
 
-if st.button("预测"):
+if st.button("Predict"):
     # （可选）一致性校验：特征数量与模型一致
     get_cnt = getattr(model, 'get_feature_count', None)
     expected = int(get_cnt()) if callable(get_cnt) else len(features)
     provided = X_input_df.shape[1]
     if provided != expected:
         st.error(
-            f"❌ 特征数量不一致：模型期望 {expected} 个，当前提供 {provided} 个。\n"
-            f"请核对特征顺序/名称：{features}"
+            f"❌ Inconsistent number of features: Model expect {expected} ，Currently available {provided} 。\n"
+            f"Please verify the order/name of the features：{features}"
         )
     else:
         # 预测 + 保留四位小数
         y_pred = float(model.predict(X_input_df)[0])
-        st.write(f"**预测的氢气生产量 (mL/g):** {y_pred:.4f}")
+        st.write(f"**Predicted hydrogen production (mL/g):** {y_pred:.4f}")
 
         # SHAP 可视化（可选）
         try:
