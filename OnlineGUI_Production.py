@@ -28,7 +28,7 @@ input_values = np.array([list(inputs.values())])
 # 当点击“预测”按钮时
 if st.button("Predict"):
     # 使用模型进行预测
-    predicted_production = model.predict(input_values)[0]
+    predicted_production = float(model.predict(input_values)[0])
     
     # 显示预测结果
     st.write(f"**Predicted hydrogen production volume (mL/g):** {predicted_production.4f}")
