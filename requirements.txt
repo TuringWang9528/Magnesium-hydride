@@ -7,3 +7,4 @@ catboost==1.2.7
 scikit-learn==1.5.1
 shap==0.45.1
 openpyxl==3.1.5
+ngboost==0.5.0
